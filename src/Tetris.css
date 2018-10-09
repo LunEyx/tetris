@@ -7,7 +7,19 @@ table:focus {
   outline: none;
 }
 
-td {
+#tetris-next {
+  width: 120px;
+  vertical-align: top;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+#tetris-next td {
+  width: 20px;
+  height: 20px;
+}
+
+#board td {
   width: 25px;
   height: 25px;
   border-style: solid;

@@ -13,9 +13,15 @@ class Tetris extends React.Component {
       board[i] = (new Array(width)).fill(-1);
     }
 
+    let next = [];
+    for (let i = 0; i < 5; i++) {
+      next.push(Math.floor(Math.random() * 7));
+    }
+
     this.state = {
       gameState: 'start',
-      board: map || board
+      board: map || board,
+      next: next
     };
 
     this.tiles = Tile.tiles;
@@ -24,7 +30,7 @@ class Tetris extends React.Component {
     this.updateInterval = 100;
     this.autoDownInterval = 1000 / this.updateInterval;
     this.lockInterval = 1000;
-    this.debug = true;
+    this.debug = false;
   }
 
   componentDidUpdate() {
@@ -75,8 +81,14 @@ class Tetris extends React.Component {
       board[i] = (new Array(width)).fill(-1);
     }
 
+    let next = [];
+    for (let i = 0; i < 5; i++) {
+      next.push(Math.floor(Math.random() * 7));
+    }
+
     this.setState({
-      board: map || board
+      board: map || board,
+      next: next
     });
     this.initializeGame();
   }
@@ -129,7 +141,7 @@ class Tetris extends React.Component {
     this.lockTimer = null;
 
     // Initialize the new tile
-    this.tile = new Tile(Math.floor(Math.random() * 7));
+    this.tile = new Tile(this.getNextTileType());
 
     // Check and Place the new tile
     let board = this.state.board.map(row => row.slice());
@@ -419,6 +431,20 @@ class Tetris extends React.Component {
     });
   }
 
+  getNextTileType = () => {
+    const next = this.state.next[0];
+
+    const newNext = Math.floor(Math.random() * 7);
+
+    this.setState((state) => {
+      state.next.shift();
+      state.next.push(newNext);
+      return { next: state.next };
+    });
+
+    return next;
+  }
+
   createBoard = () => {
     const board = this.state.board;
     const {height, width} = this.props;
@@ -429,6 +455,24 @@ class Tetris extends React.Component {
 
       for (let i = 0; i < width; i++) {
         row.push(<td key={j*width+i} className={(() => {const color = board[j][i]; return color === -2 ? this.colors[7] : this.colors[board[j][i]]})()}></td>);
+      }
+
+      table.push(<tr key={j}>{row}</tr>);
+    }
+
+    return <tbody>{table}</tbody>;
+  }
+
+  createNext = (i) => {
+    // const type = this.state.next[i];
+
+    let table = [];
+
+    for (let j = 0; j < 3; j++) {
+      let row = [];
+
+      for (let i = 0; i < 3; i++) {
+        row.push(<td></td>);
       }
 
       table.push(<tr key={j}>{row}</tr>);
@@ -472,19 +516,35 @@ class Tetris extends React.Component {
   render() {
     return (
       <div>
-        <div
-          className={this.state.gameState}
-          onClick={this.onDisplayClick}
-        >
-          {this.displayText()}
-        </div>
-        <table
-          onKeyDown={this.handleKeyDown}
-          onKeyUp={this.handleKeyUp}
-          tabIndex="0"
-          ref={table => this.table = table}
-        >
-          {this.createBoard()}
+        <table border={1}>
+          <tbody>
+            <tr>
+              <td>
+                <div
+                  className={this.state.gameState}
+                  onClick={this.onDisplayClick}
+                >
+                  {this.displayText()}
+                </div>
+                <table
+                  id='board'
+                  onKeyDown={this.handleKeyDown}
+                  onKeyUp={this.handleKeyUp}
+                  tabIndex="0"
+                  ref={table => this.table = table}
+                >
+                  {this.createBoard()}
+                </table>
+              </td>
+              <td id='tetris-next'>
+                {this.createNext(0)}
+                {this.createNext(1)}
+                {this.createNext(2)}
+                {this.createNext(3)}
+                {this.createNext(4)}
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     );
