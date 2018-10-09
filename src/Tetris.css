@@ -1,0 +1,79 @@
+table {
+  border-collapse: collapse;
+  /* background-color: black; */
+}
+
+table:focus {
+  outline: none;
+}
+
+td {
+  width: 25px;
+  height: 25px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #444444;
+}
+
+.red {
+  background-color: #e51c23;
+}
+
+.blue {
+  background-color: #3333ff;
+}
+
+.green {
+  background-color: #00ff00;
+}
+
+.yellow {
+  background-color: #ffeb3b;
+}
+
+.cyan {
+  background-color: #00ffff;
+}
+
+.purple {
+  background-color: #ff33ff;
+}
+
+.orange {
+  background-color: #ff9933;
+}
+
+.grey {
+  background-color: #aaaaaa;
+}
+
+.gameover {
+  position: absolute;
+  top: 300px;
+  left: 110px;
+  /* color: white; */
+  font-size: 300%;
+  font-style: oblique;
+  font-weight: bold;
+}
+
+.pause {
+  position: absolute;
+  top: 300px;
+  left: 180px;
+  /* color: white; */
+  font-size: 300%;
+  font-style: oblique;
+  font-weight: bold;
+}
+
+.start {
+  position: absolute;
+  top: 300px;
+  left: 180px;
+  /* color: white; */
+  font-size: 300%;
+  font-style: oblique;
+  font-weight: bold;
+}
+
