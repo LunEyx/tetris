@@ -464,15 +464,15 @@ class Tetris extends React.Component {
   }
 
   createNext = (i) => {
-    // const type = this.state.next[i];
+    const type = this.state.next[i];
 
     let table = [];
 
-    for (let j = 0; j < 3; j++) {
+    for (let j = 0; j < 4; j++) {
       let row = [];
 
-      for (let i = 0; i < 3; i++) {
-        row.push(<td></td>);
+      for (let i = 0; i < 4; i++) {
+        row.push(<td key={j*3+i} className={this.colors[type]}></td>);
       }
 
       table.push(<tr key={j}>{row}</tr>);
