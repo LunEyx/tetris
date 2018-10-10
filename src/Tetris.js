@@ -468,17 +468,20 @@ class Tetris extends React.Component {
 
     let table = [];
 
-    for (let j = 0; j < 4; j++) {
+    for (let j = 0; j < 3; j++) {
       let row = [];
 
       for (let i = 0; i < 4; i++) {
-        row.push(<td key={j*3+i} className={this.colors[type]}></td>);
+        let colored = '';
+        if (this.tiles[type][j] && this.tiles[type][j][i] === 1)
+          colored = 'colored'
+        row.push(<td key={j*3+i} className={colored ? this.colors[type] : ''}></td>);
       }
 
       table.push(<tr key={j}>{row}</tr>);
     }
 
-    return <tbody>{table}</tbody>;
+    return <table><tbody>{table}</tbody></table>;
   }
 
   displayText = () => {
@@ -516,7 +519,7 @@ class Tetris extends React.Component {
   render() {
     return (
       <div>
-        <table border={1}>
+        <table>
           <tbody>
             <tr>
               <td>
@@ -546,6 +549,34 @@ class Tetris extends React.Component {
             </tr>
           </tbody>
         </table>
+        <div id="help">
+          How to play <br />
+          Click on START to start
+          <table>
+            <tbody>
+              <tr>
+                <td>←→</td>
+                <td>move left/right</td>
+              </tr>
+              <tr>
+                <td>↓</td>
+                <td>move down faster</td>
+              </tr>
+              <tr>
+                <td>SPACE</td>
+                <td>move down to bottom instantly</td>
+              </tr>
+              <tr>
+                <td>↑</td>
+                <td>rotate clockwise</td>
+              </tr>
+              <tr>
+                <td>z</td>
+                <td>rotate anti-clockwise</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }
